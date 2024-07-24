@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.51.11",
+    "effector": "^23.2.2",
+    "effector-react": "^23.2.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-query": "^3.39.3"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
