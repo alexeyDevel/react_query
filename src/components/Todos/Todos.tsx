@@ -1,39 +1,37 @@
-import { useQuery } from "@tanstack/react-query";
+import { useStore } from "effector-react";
+import { $todos, createTodoFx, update } from "../../models/todos/todosStore";
+import { Button, Container, ListGroup, ListGroupItem } from "react-bootstrap";
 
-// Данные для нашего todo-листа
-const initialTodos = [
-  { id: 1, title: "Задача 1" },
-  { id: 2, title: "Задача 2" },
-  { id: 3, title: "Задача 3" },
-];
+// const initialTodos = [
+//   { id: 1, title: "Задача 1" },
+//   { id: 2, title: "Задача 2" },
+//   { id: 3, title: "Задача 3" },
+// ];
 
 // Компонент Todo-листа
 export function Todos() {
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ["todos"],
-    queryFn: () => initialTodos,
-  });
-
-  if (isPending) {
-    return <span>Loading...</span>;
-  }
-
-  if (isError) {
-    return <span>Error: {error.message}</span>;
-  }
-  <ul>
-    {data.map((todo) => (
-      <li key={todo.id}>{todo.title}</li>
-    ))}
-  </ul>;
+  const todos = useStore($todos);
 
   return (
-    <div>
-      <ul>
-        {data.map((todo) => (
-          <li key={todo.id}>{todo.title}</li>
+    <Container className="mt-5">
+      <Button
+        variant="primary"
+        onClick={() =>
+          createTodoFx({
+            userId: 1,
+            id: 1,
+            title: "Новая тудушка",
+            completed: false,
+          })
+        }
+      >
+        Add Todo
+      </Button>
+      <ListGroup className="mt-3">
+        {todos.map((todo) => (
+          <ListGroupItem key={todo.id}>{todo.title}</ListGroupItem>
         ))}
-      </ul>
-    </div>
+      </ListGroup>
+    </Container>
   );
 }
